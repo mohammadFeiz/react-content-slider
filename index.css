@@ -1,4 +1,4 @@
-.content-slider{
+.rh-slider{
   position:relative;
   width:100%;
   overflow:hidden;
@@ -6,7 +6,7 @@
   color:#888;
   border:1px solid #ddd;
 }
-.content-slider-items{
+.rh-slider-items{
   display:flex;
   left:0px;
   top:0px;
@@ -14,14 +14,14 @@
   height:fit-content;
   position: relative;
 }
-.content-slider-item{
+.rh-slider-item{
   width:100%;
   user-select:none;
   flex-shrink:0;
   display:flex;
   justify-content: center;
 }
-.content-slider-arrow{
+.rh-slider-arrow{
   width:36px;
   height:36px;
   position:absolute;

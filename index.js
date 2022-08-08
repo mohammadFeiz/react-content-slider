@@ -300,7 +300,7 @@ class ReactHTMLSlider extends _react.Component {
     }
 
     return /*#__PURE__*/_react.default.createElement("div", {
-      className: "content-slider-arrow",
+      className: "rh-slider-arrow",
       style: style,
       onClick: onClick
     }, html);
@@ -324,11 +324,11 @@ class ReactHTMLSlider extends _react.Component {
     }
 
     return /*#__PURE__*/_react.default.createElement("div", _extends({
-      className: "content-slider"
+      className: "rh-slider"
     }, attrs, {
       ref: this.dom
     }), /*#__PURE__*/_react.default.createElement("div", {
-      className: "content-slider-items",
+      className: "rh-slider-items",
       style: {
         left
       },
@@ -337,7 +337,7 @@ class ReactHTMLSlider extends _react.Component {
       onDragStart: e => e.preventDefault()
     }, items.map((o, i) => /*#__PURE__*/_react.default.createElement("div", {
       key: i,
-      className: "content-slider-item"
+      className: "rh-slider-item"
     }, o))), this.getArrow('left'), this.getArrow('right'));
   }
 

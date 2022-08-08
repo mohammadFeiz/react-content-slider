@@ -131,7 +131,7 @@ export default class ReactHTMLSlider extends Component {
       }
     }
     return (
-      <div className='content-slider-arrow' style={style} onClick={onClick}>{html}</div>
+      <div className='rh-slider-arrow' style={style} onClick={onClick}>{html}</div>
     )
   }
   render(){
@@ -141,13 +141,13 @@ export default class ReactHTMLSlider extends Component {
     if(moving){left = this.state.left; items = this.getItems()}
     else{left = 0; items = [this.props.items[this.index]]}
     return (
-    <div className='content-slider' {...attrs} ref={this.dom}>
+    <div className='rh-slider' {...attrs} ref={this.dom}>
       <div 
-        className='content-slider-items' style={{left}}
+        className='rh-slider-items' style={{left}}
         onMouseDown={this.mouseDown.bind(this)}
         draggable={false}
         onDragStart={(e)=>e.preventDefault()}
-      >{items.map((o,i)=><div key={i} className='content-slider-item'>{o}</div>)}</div>  
+      >{items.map((o,i)=><div key={i} className='rh-slider-item'>{o}</div>)}</div>  
       {this.getArrow('left')}
       {this.getArrow('right')}
       
