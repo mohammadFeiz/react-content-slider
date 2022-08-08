@@ -1,0 +1,30 @@
+{
+  "name": "react-html-slider",
+  "version": "1.0.0",
+  "description": "use html in slider",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohammadFeiz/react-content-slider.git"
+  },
+  "author": "mohammad s feiz,feiz.ms@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "3.6.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-scripts": "latest"
+  },
+  "bugs": {
+    "url": "https://github.com/mohammadFeiz/react-content-slider/issues"
+  },
+  "homepage": "https://github.com/mohammadFeiz/react-content-slider#readme"
+}
