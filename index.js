@@ -99,7 +99,9 @@ class ReactHTMLSlider extends _react.Component {
     }
 
     this.isDown = true;
-    let x = e.clientX;
+    let {
+      x
+    } = this.getClient(e);
     let width = this.getWidth();
     this.so = {
       x,
@@ -111,8 +113,8 @@ class ReactHTMLSlider extends _react.Component {
       lastLeft: -width,
       moving: true
     });
-    (0, _jquery.default)(window).bind('mousemove', _jquery.default.proxy(this.mouseMove, this));
-    (0, _jquery.default)(window).bind('mouseup', _jquery.default.proxy(this.mouseUp, this));
+    this.eventHandler('window', 'mousemove', _jquery.default.proxy(this.mouseMove, this));
+    this.eventHandler('window', 'mouseup', _jquery.default.proxy(this.mouseUp, this));
   }
 
   setIndex(offset) {
@@ -163,7 +165,6 @@ class ReactHTMLSlider extends _react.Component {
     let newLeft = this.state.lastLeft + -offset * this.getWidth();
     let dir = offset * -step;
     this.interval = setInterval(() => {
-      debugger;
       let {
         left
       } = this.state;
@@ -181,7 +182,9 @@ class ReactHTMLSlider extends _react.Component {
   }
 
   mouseMove(e) {
-    let x = e.clientX;
+    let {
+      x
+    } = this.getClient(e);
     let offset = x - this.so.x;
 
     if (Math.abs(offset) >= this.so.width - 10) {
@@ -195,8 +198,8 @@ class ReactHTMLSlider extends _react.Component {
 
   mouseUp() {
     this.isDown = false;
-    (0, _jquery.default)(window).unbind('mousemove', this.mouseMove);
-    (0, _jquery.default)(window).unbind('mouseup', this.mouseUp);
+    this.eventHandler('window', 'mousemove', this.mouseMove, 'unbind');
+    this.eventHandler('window', 'mouseup', this.mouseUp, 'unbind');
     let {
       swipMethod
     } = this.props;
@@ -308,6 +311,32 @@ class ReactHTMLSlider extends _react.Component {
     }, html);
   }
 
+  getClient(e) {
+    let touch = ('ontouchstart' in document.documentElement);
+    return touch ? {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY
+    } : {
+      x: e.clientX,
+      y: e.clientY
+    };
+  }
+
+  eventHandler(selector, event, action, type = 'bind') {
+    var me = {
+      mousedown: "touchstart",
+      mousemove: "touchmove",
+      mouseup: "touchend"
+    };
+    event = 'ontouchstart' in document.documentElement ? me[event] : event;
+    var element = typeof selector === "string" ? selector === "window" ? (0, _jquery.default)(window) : (0, _jquery.default)(selector) : selector;
+    element.unbind(event, action);
+
+    if (type === 'bind') {
+      element.bind(event, action);
+    }
+  }
+
   render() {
     let {
       moving
@@ -335,6 +364,7 @@ class ReactHTMLSlider extends _react.Component {
         left
       },
       onMouseDown: this.mouseDown.bind(this),
+      onTouchStart: this.mouseDown.bind(this),
       draggable: false,
       onDragStart: e => e.preventDefault()
     }, items.map((o, i) => /*#__PURE__*/_react.default.createElement("div", {

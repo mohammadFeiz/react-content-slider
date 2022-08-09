@@ -43,12 +43,12 @@ export default class ReactHTMLSlider extends Component {
     if(this.state.moving){return}
     if(this.props.items.length < 2){return}
     this.isDown = true;
-    let x = e.clientX;
+    let {x} = this.getClient(e);
     let width = this.getWidth();
     this.so = {x,left:-width,width};
     this.setState({left:-width,lastLeft:-width,moving:true})
-    $(window).bind('mousemove',$.proxy(this.mouseMove,this));
-    $(window).bind('mouseup',$.proxy(this.mouseUp,this));
+    this.eventHandler('window','mousemove',$.proxy(this.mouseMove,this));
+    this.eventHandler('window','mouseup',$.proxy(this.mouseUp,this));
   }
   setIndex(offset){
     this.index += offset;
@@ -71,7 +71,6 @@ export default class ReactHTMLSlider extends Component {
     let newLeft = this.state.lastLeft + -offset * this.getWidth();
     let dir = offset * -step;
     this.interval = setInterval(()=>{
-      debugger;
       let {left} = this.state;  
       if(dir > 0 && left >= newLeft){this.stopScroll(offset)}
       else if(dir < 0 && left <= newLeft){this.stopScroll(offset)}
@@ -79,15 +78,15 @@ export default class ReactHTMLSlider extends Component {
     },speed)
   }
   mouseMove(e){
-    let x = e.clientX;
+    let {x} = this.getClient(e);
     let offset = x - this.so.x;
     if(Math.abs(offset) >= this.so.width - 10){return}
     this.setState({left:this.so.left + offset})
   }
   mouseUp(){
     this.isDown = false;
-    $(window).unbind('mousemove',this.mouseMove);
-    $(window).unbind('mouseup',this.mouseUp);
+    this.eventHandler('window','mousemove',this.mouseMove,'unbind');
+    this.eventHandler('window','mouseup',this.mouseUp,'unbind');
     let {swipMethod} = this.props;
     let {left,lastLeft} = this.state;
     if(left === lastLeft){
@@ -135,6 +134,17 @@ export default class ReactHTMLSlider extends Component {
       <div className='rh-slider-arrow' style={style} onClick={onClick}>{html}</div>
     )
   }
+  getClient(e){
+    let touch = 'ontouchstart' in document.documentElement;
+    return touch?{x: e.changedTouches[0].clientX,y:e.changedTouches[0].clientY }:{x:e.clientX,y:e.clientY}
+  }
+  eventHandler(selector, event, action,type = 'bind'){
+    var me = { mousedown: "touchstart", mousemove: "touchmove", mouseup: "touchend" }; 
+    event = 'ontouchstart' in document.documentElement ? me[event] : event;
+    var element = typeof selector === "string"?(selector === "window"?$(window):$(selector)):selector; 
+    element.unbind(event, action); 
+    if(type === 'bind'){element.bind(event, action)}
+  }
   render(){
     let {moving} = this.state;
     let {attrs} = this.props;
@@ -146,6 +156,7 @@ export default class ReactHTMLSlider extends Component {
       <div 
         className='rh-slider-items' style={{left}}
         onMouseDown={this.mouseDown.bind(this)}
+        onTouchStart={this.mouseDown.bind(this)}
         draggable={false}
         onDragStart={(e)=>e.preventDefault()}
       >{items.map((o,i)=><div key={i} className='rh-slider-item'>{o}</div>)}</div>  
