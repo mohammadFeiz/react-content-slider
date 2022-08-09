@@ -1,6 +1,6 @@
 {
   "name": "react-html-slider",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "use html in slider",
   "main": "index.js",
   "repository": {
@@ -12,7 +12,8 @@
   "dependencies": {
     "jquery": "3.6.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-slider-dots":"2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

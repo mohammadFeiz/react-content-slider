@@ -9,6 +9,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
+var _reactSliderDots = _interopRequireDefault(require("react-slider-dots"));
+
 require("./index.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -338,7 +340,11 @@ class ReactHTMLSlider extends _react.Component {
     }, items.map((o, i) => /*#__PURE__*/_react.default.createElement("div", {
       key: i,
       className: "rh-slider-item"
-    }, o))), this.getArrow('left'), this.getArrow('right'));
+    }, o))), this.getArrow('left'), this.getArrow('right'), /*#__PURE__*/_react.default.createElement(_reactSliderDots.default, {
+      attrs: {},
+      index: this.index,
+      length: this.props.items.length
+    }));
   }
 
 }
@@ -346,7 +352,7 @@ class ReactHTMLSlider extends _react.Component {
 exports.default = ReactHTMLSlider;
 ReactHTMLSlider.defaultProps = {
   items: [],
-  speed: 90,
+  speed: 96,
   arrow: true,
-  autoSlide: 3000
+  autoSlide: 4000
 };

@@ -1,5 +1,6 @@
 import React,{Component,createRef} from 'react';
 import $ from 'jquery';
+import ReactSliderDots from 'react-slider-dots';
 import "./index.css";
 export default class ReactHTMLSlider extends Component {
   constructor(props){
@@ -150,7 +151,7 @@ export default class ReactHTMLSlider extends Component {
       >{items.map((o,i)=><div key={i} className='rh-slider-item'>{o}</div>)}</div>  
       {this.getArrow('left')}
       {this.getArrow('right')}
-      
+      <ReactSliderDots attrs={{}} index={this.index} length={this.props.items.length}/>
     </div>
     
   );
@@ -158,7 +159,7 @@ export default class ReactHTMLSlider extends Component {
 }
 ReactHTMLSlider.defaultProps = {
   items:[],
-  speed:90,
+  speed:96,
   arrow:true,
-  autoSlide:3000,
+  autoSlide:4000,
 }
